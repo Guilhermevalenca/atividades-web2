@@ -13,10 +13,27 @@ class PublisherSeeder extends Seeder
      */
     public function run(): void
     {
-        Publisher::create(['name' => 'Companhia das Letras', 'address' => 'São Paulo, SP, Brasil']);
-        Publisher::create(['name' => 'Editora Record', 'address' => 'Rio de Janeiro, RJ, Brasil']);
-        Publisher::create(['name' => 'HarperCollins Brasil', 'address' => 'São Paulo, SP, Brasil']);
-        Publisher::create(['name' => 'Rocco', 'address' => 'Rio de Janeiro, RJ, Brasil']);
-        Publisher::create(['name' => 'DarkSide Books', 'address' => 'São Paulo, SP, Brasil']);
+        Publisher::factory()->createMany([
+            [
+                'name' => 'Companhia das Letras',
+                'address' => 'São Paulo, SP, Brasil'
+            ],
+            [
+                'name' => 'Editora Record',
+                'address' => 'Rio de Janeiro, RJ, Brasil'
+            ],
+            [
+                'name' => 'HarperCollins Brasil',
+                'address' => 'São Paulo, SP, Brasil'
+            ],
+            [
+                'name' => 'Rocco',
+                'address' => 'Rio de Janeiro, RJ, Brasil'
+            ],
+            [
+                'name' => 'DarkSide Books',
+                'address' => 'São Paulo, SP, Brasil'
+            ]
+        ]);
     }
 }
