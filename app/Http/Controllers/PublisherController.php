@@ -13,7 +13,9 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        $publishers = Publisher::with('books')
+            ->get();
+        return view('publishers.index', compact('publishers'));
     }
 
     /**
@@ -21,7 +23,7 @@ class PublisherController extends Controller
      */
     public function create()
     {
-        //
+        return view('publishers.create');
     }
 
     /**
@@ -29,38 +31,54 @@ class PublisherController extends Controller
      */
     public function store(StorePublisherRequest $request)
     {
-        //
+        $validation = $request->validated();
+        Publisher::create($validation);
+
+        return to_route('publishers.index')
+            ->with('success', 'Editora criada com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Publisher $publisher)
+    public function show($id)
     {
-        //
+        $publisher = Publisher::with('books')
+            ->findOrFail($id);
+        return view('publishers.show', compact('publisher'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Publisher $publisher)
+    public function edit(Publisher $id)
     {
-        //
+        $publisher = $id;
+        return view('publishers.edit', compact('publisher'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePublisherRequest $request, Publisher $publisher)
+    public function update(UpdatePublisherRequest $request, Publisher $id)
     {
-        //
+        $validation = $request->validated();
+        $publisher = $id;
+        $publisher->update($validation);
+
+        return to_route('publishers.index')
+            ->with('success', 'Editora atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Publisher $publisher)
+    public function destroy(Publisher $id)
     {
-        //
+        $publisher = $id;
+        $publisher->delete();
+
+        return to_route('publishers.index')
+            ->with('success', 'Editora exlucida com sucesso');
     }
 }

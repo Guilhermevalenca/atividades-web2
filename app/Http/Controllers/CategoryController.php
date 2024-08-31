@@ -13,7 +13,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::with('books')
+            ->get();
+
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -21,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -29,38 +32,55 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $validation = $request->validated();
+        Category::create($validation);
+
+        return to_route('categories.index')
+            ->with('success', 'Categoria criada com sucesso!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::with('books')
+            ->findOrFail($id);
+
+        return view('categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(Category $id)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $id)
     {
-        //
+        $validation = $request->validated();
+        $category = $id;
+        $category->update($validation);
+
+        return to_route('categories.index')
+            ->with('success', 'Categoria atualizada com sucesso!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Category $id)
     {
-        //
+        $category = $id;
+        $category->books()->detach();
+        $category->delete();
+
+        return to_route('categories.index')
+            ->with('success', 'Categoria excluida com sucesso!');
     }
 }

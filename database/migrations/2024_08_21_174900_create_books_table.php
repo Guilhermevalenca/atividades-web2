@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignId('publisher_id')
                 ->nullable()
                 ->references('id')
-                ->on('categories')
-                ->cascadeOnDelete();
+                ->on('publishers')
+                ->onDelete('set null');
             $table->integer('published_year')
                 ->nullable();
             $table->timestamps();
