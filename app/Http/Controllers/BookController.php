@@ -39,6 +39,12 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         $validation = $request->validated();
+
+        if(array_key_exists('cover', $validation)) {
+            $coverPath = $validation['cover']->store('covers_books', 'public');
+            $validation['cover'] = $coverPath;
+        }
+
         $book = Book::create($validation);
         $book->categories()
             ->attach($validation['categories']);
@@ -78,6 +84,12 @@ class BookController extends Controller
     {
         $validation = $request->validated();
         $book = Book::findOrFail($id);
+
+        if(array_key_exists('cover', $validation)) {
+            $coverPath = $validation['cover']->store('covers_books', 'public');
+            $validation['cover'] = $coverPath;
+        }
+
         $book->update($validation);
         $book->categories()
             ->sync($validation['categories']);

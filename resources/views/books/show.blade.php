@@ -1,3 +1,7 @@
+@php
+    use \Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="tw-font-semibold tw-text-xl tw-text-gray-800 tw-dark:text-gray-200 tw-leading-tight">
@@ -11,6 +15,7 @@
                 <div class="tw-p-6 tw-text-gray-900 tw-dark:text-gray-100">
 
                     <div class="container">
+                        <img src="{{ Storage::url($book->cover)  }}" alt="imagem do livro">
                         <h1>{{ $book->title }}</h1>
                         <p><strong>Autor:</strong> {{ $book->author->name }}</p>
                         <p><strong>Editora:</strong> {{ $book->publisher->name }}</p>

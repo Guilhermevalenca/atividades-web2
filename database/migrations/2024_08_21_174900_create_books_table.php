@@ -25,6 +25,8 @@ return new class extends Migration
                 ->onDelete('set null');
             $table->integer('published_year')
                 ->nullable();
+            $table->string('cover')
+                ->nullable();
             $table->timestamps();
         });
     }

@@ -26,7 +26,8 @@ class StoreBookRequest extends FormRequest
             'author_id' => ['required', 'integer'],
             'publisher_id' => ['required', 'integer'],
             'published_year' => ['required', 'integer'],
-            'categories' => ['required', 'array']
+            'categories' => ['required', 'array'],
+            'cover' => ['file', 'image']
         ];
     }
 }
