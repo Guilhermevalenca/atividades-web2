@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('book_id')
                 ->references('id')
-                ->on('books');
+                ->on('books')
+                ->onDelete('cascade');
             $table->foreignId('category_id')
                 ->references('id')
-                ->on('categories');
+                ->on('categories')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -40,7 +40,8 @@ class BookController extends Controller
     {
         $validation = $request->validated();
         $book = Book::create($validation);
-        $book->categories()->attach($validation->categories);
+        $book->categories()
+            ->attach($validation['categories']);
 
         return to_route('books.index')
             ->with('success', 'Livro criado com sucesso!');
@@ -79,7 +80,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         $book->update($validation);
         $book->categories()
-            ->sync($validation->categories);
+            ->sync($validation['categories']);
 
         return to_route('books.index')
             ->with('success', 'Livro atualizado com sucesso');
