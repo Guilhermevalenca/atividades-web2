@@ -19,12 +19,14 @@
                             @endforeach
                         </ul>
                         <a href="{{ route('categories.index') }}" class="btn btn-primary">Voltar à Lista</a>
-                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">Excluir</button>
-                        </form>
+                        @if(auth()->user()->role !== 'cliente')
+                            <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning">Editar</a>
+                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta categoria?')">Excluir</button>
+                            </form>
+                        @endif
                     </div>
 
                 </div>

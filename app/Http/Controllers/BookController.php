@@ -8,6 +8,8 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Publisher;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class BookController extends Controller
 {
@@ -26,6 +28,7 @@ class BookController extends Controller
      */
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         $authors = Author::all();
         $publishers = Publisher::all();
         $categories = Category::all();
@@ -38,6 +41,7 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
+        Gate::authorize('librarian', User::class);
         $validation = $request->validated();
 
         if(array_key_exists('cover', $validation)) {
@@ -68,6 +72,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
+        Gate::authorize('librarian', User::class);
         $book = Book::findOrFail($id);
         $authors = Author::all();
         $publishers = Publisher::all();
@@ -82,6 +87,7 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, $id)
     {
+        Gate::authorize('librarian', User::class);
         $validation = $request->validated();
         $book = Book::findOrFail($id);
 
@@ -103,6 +109,7 @@ class BookController extends Controller
      */
     public function destroy(Book $id)
     {
+        Gate::authorize('librarian', User::class);
         $book = $id;
         $book->categories()->detach();
         $book->delete();

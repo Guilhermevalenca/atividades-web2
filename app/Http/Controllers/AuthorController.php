@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Author;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthorController extends Controller
 {
@@ -24,6 +26,7 @@ class AuthorController extends Controller
      */
     public function create()
     {
+        Gate::authorize('librarian', User::class);
         return view('authors.create');
     }
 
@@ -32,6 +35,7 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
+        Gate::authorize('librarian', User::class);
         $validation = $request->validated();
         Author::create($validation);
 
@@ -54,6 +58,7 @@ class AuthorController extends Controller
      */
     public function edit(Author $id)
     {
+        Gate::authorize('librarian', User::class);
         $author = $id;
         return view('authors.edit', compact('author'));
     }
@@ -63,6 +68,7 @@ class AuthorController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $id)
     {
+        Gate::authorize('librarian', User::class);
         $author = $id;
         $validation = $request->validated();
         $author->update($validation);
@@ -76,6 +82,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $id)
     {
+        Gate::authorize('librarian', User::class);
         $author = $id;
         $author->delete();
 
