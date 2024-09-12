@@ -26,7 +26,7 @@
                             {{ __('Authors') }}
                         </x-nav-link>
                         @if(auth()->user()->role === 'admin')
-                            <x-nav-link :href="route('roles.index')" :active="request()->routeIs('Papeis.*')">
+                            <x-nav-link :href="route('roles.index')" :active="request()->routeIs('roles.*')">
                                 {{ __('Roles') }}
                             </x-nav-link>
                         @endif

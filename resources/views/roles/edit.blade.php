@@ -36,12 +36,30 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label for="papel" class="form-label">Papeis</label>
-                                <select class="form-select" name="role" required>
-                                    <option value="">Selecione um papel</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="bibliotecario">Bibliotecario</option>
-                                    <option value="cliente">Cliente</option>
+                                <label for="papel" class="form-label">Selecione novo papel</label>
+                                <select
+                                    class="form-select"
+                                    name="role"
+                                    required
+                                >
+                                    <option
+                                        value="admin"
+                                        @selected($user->role === 'admin')
+                                    >
+                                        Administrador
+                                    </option>
+                                    <option
+                                        value="bibliotecario"
+                                        @selected($user->role === 'bibliotecario')
+                                    >
+                                        Bibliotecario
+                                    </option>
+                                    <option
+                                        value="cliente"
+                                        @selected($user->role === 'cliente')
+                                    >
+                                        Cliente
+                                    </option>
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">Salvar Alterações</button>
