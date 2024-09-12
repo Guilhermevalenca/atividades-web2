@@ -27,13 +27,14 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>
-                                        <a href="{{ route('books.edit', $user->id) }}" class="btn btn-warning">Editar</a>
+                                        <a href="{{ route('roles.edit', $user->id) }}" class="btn btn-warning">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{$users->links()}}
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::with('books')
-            ->get();
+            ->paginate();
 
         return view('categories.index', compact('categories'));
     }

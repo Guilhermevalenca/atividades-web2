@@ -44,7 +44,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    {{ $authors->links() }}
                 </div>
             </div>
         </div>

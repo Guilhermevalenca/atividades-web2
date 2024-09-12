@@ -16,7 +16,7 @@ class PublisherController extends Controller
     public function index()
     {
         $publishers = Publisher::with('books')
-            ->get();
+            ->paginate();
         return view('publishers.index', compact('publishers'));
     }
 

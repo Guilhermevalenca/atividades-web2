@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Publisher;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
 {
@@ -19,7 +20,7 @@ class BookController extends Controller
     public function index()
     {
         $books = Book::with(['author', 'publisher', 'categories'])
-            ->get();
+            ->paginate();
         return view('books.index', compact('books'));
     }
 
@@ -92,6 +93,7 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
 
         if(array_key_exists('cover', $validation)) {
+            Storage::delete('public/' . $book->cover);
             $coverPath = $validation['cover']->store('covers_books', 'public');
             $validation['cover'] = $coverPath;
         }
@@ -111,6 +113,7 @@ class BookController extends Controller
     {
         Gate::authorize('librarian', User::class);
         $book = $id;
+        Storage::delete('public/' . $book->cover);
         $book->categories()->detach();
         $book->delete();
 

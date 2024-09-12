@@ -44,7 +44,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    {{$publishers->links()}}
 
                 </div>
             </div>
